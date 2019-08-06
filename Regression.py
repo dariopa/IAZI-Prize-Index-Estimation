@@ -16,12 +16,11 @@ X_train = DataTrain[:,1:6]
 #########################################################
 # # GENERATE FULL DATA
 row, col = X_train.shape
-X_train_full = np.full((row,21), 0., dtype=np.float32)
+X_train_full = np.full((row,6), 0., dtype=np.float32)
 X_train_full[:, 0:5] = X_train
-X_train_full[:, 5:10] = X_train**2
-X_train_full[:, 10:15] = np.sin(X_train)
-X_train_full[:, 15:20] = np.cos(X_train)
-X_train_full[:, 20:21] = 1.
+# X_train_full[:, 5:10] = np.sin(X_train)
+# X_train_full[:, 10:15] = np.cos(X_train)
+X_train_full[:, 5:6] = 1.
 
 X_train = X_train_full
 #########################################################
@@ -46,18 +45,21 @@ weights_lasso = Regression.LassoRegression(X_train, y_train)
 # DEFINE BIAS
 results_lin = X_train.dot(weights_lin)
 weights_lin[-1] = np.mean(y_train - results_lin) # calculate bias and add it to end of linear model
+print(np.mean(y_train - results_lin))
 results_lin = X_train.dot(weights_lin)
 results_lin_comp = np.c_[ results_lin, y_train ] 
 print("Linear regression: \n", results_lin_comp)
 
 results_ridge = X_train.dot(weights_ridge)
 weights_ridge[-1] = np.mean(y_train - results_ridge) # calculate bias and add it to end of ridge model
+print(np.mean(y_train - results_ridge))
 results_ridge = X_train.dot(weights_ridge)
 results_ridge_comp = np.c_[ results_ridge, y_train ] 
 print("\n Ridge regression: \n", results_ridge_comp)
 
 results_lasso = X_train.dot(weights_lasso)
 weights_lasso[-1] = np.mean(y_train - results_lasso) # calculate bias and add it to end of lasso model
+print(np.mean(y_train - results_lasso))
 results_lasso = X_train.dot(weights_lasso)
 results_lasso_comp = np.c_[ results_lasso, y_train ] 
 print("\n Lasso regression: \n", results_lasso_comp)
