@@ -43,18 +43,6 @@ weights_ridge = Regression.RidgeRegression(X_train, y_train)
 weights_lasso = Regression.LassoRegression(X_train, y_train)
 
 #########################################################
-# STORE WEIGHTS
-
-PrintOutput(weights_lin, os.path.join(CallFolder, "weights_lin.csv"))
-# print("Linear weights: ", weights_lin)
-
-PrintOutput(weights_ridge, os.path.join(CallFolder, "weights_ridge.csv"))
-# print("Ridge weights: ", weights_ridge)
-
-PrintOutput(weights_lasso, os.path.join(CallFolder, "weights_lasso.csv"))
-# print("Lasso weights: ", weights_lasso)
-
-#########################################################
 # DEFINE BIAS
 results_lin = X_train.dot(weights_lin)
 weights_lin[-1] = np.mean(y_train - results_lin) # calculate bias and add it to end of linear model
@@ -73,5 +61,17 @@ weights_lasso[-1] = np.mean(y_train - results_lasso) # calculate bias and add it
 results_lasso = X_train.dot(weights_lasso)
 results_lasso_comp = np.c_[ results_lasso, y_train ] 
 print("\n Lasso regression: \n", results_lasso_comp)
+
+#########################################################
+# STORE WEIGHTS
+
+PrintOutput(weights_lin, os.path.join(CallFolder, "weights_lin.csv"))
+# print("Linear weights: ", weights_lin)
+
+PrintOutput(weights_ridge, os.path.join(CallFolder, "weights_ridge.csv"))
+# print("Ridge weights: ", weights_ridge)
+
+PrintOutput(weights_lasso, os.path.join(CallFolder, "weights_lasso.csv"))
+# print("Lasso weights: ", weights_lasso)
 
 
