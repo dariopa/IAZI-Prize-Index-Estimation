@@ -1,4 +1,3 @@
-import tensorflow as tf
 import numpy as np
 from sklearn.utils import shuffle
 from utils_Models import Regression
