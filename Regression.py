@@ -15,13 +15,13 @@ y_train = DataTrain[:,6]
 X_train = DataTrain[:,1:6]
 
 #########################################################
-# # GENERATE FULL DATA
+# # GENERATE POLYNOMIAL FUNCTION OF THIRD ORDER
 row, col = X_train.shape
-X_train_full = np.full((row,21), 0., dtype=np.float32)
+X_train_full = np.full((row,16), 0., dtype=np.float32)
 X_train_full[:, 0:5] = X_train
-X_train_full[:, 10:15] = X_train**2
-X_train_full[:, 15:20] = X_train**3
-X_train_full[:, 20:21] = 1.
+X_train_full[:, 5:10] = X_train**2
+X_train_full[:, 10:15] = X_train**3
+X_train_full[:, 15:16] = 1.
 
 X_train = X_train_full
 #########################################################
@@ -31,13 +31,11 @@ np.save(os.path.join(CallFolder, 'y_train.npy'), y_train)
 
 #########################################################
 # LOAD DATA FROM NUMPY ARRAY
-
 X_train = np.load('Raw_Data/X_train.npy')
 y_train = np.load('Raw_Data/y_train.npy')
 
 #########################################################
 # TRAIN DATA
-
 weights_lin = Regression.LinRegression(X_train, y_train)
 weights_ridge = Regression.RidgeRegression(X_train, y_train)
 weights_lasso = Regression.LassoRegression(X_train, y_train)
@@ -70,7 +68,6 @@ print("\n Correlation: \n", lasso_correlation, "\n")
 
 #########################################################
 # STORE WEIGHTS
-
 PrintOutput(weights_lin, os.path.join(CallFolder, "weights_lin.csv"))
 # print("Linear weights: ", weights_lin)
 
