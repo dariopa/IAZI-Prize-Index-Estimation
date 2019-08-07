@@ -2,17 +2,25 @@ import os
 import numpy as np
 from sklearn.utils import shuffle
 from utils_Models import Regression
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from utils_OutputFormat import PrintOutput
 import matplotlib.pyplot as plt
+
 
 ################# HARDCODED INPUTS ######################
 CallFolder = 'Raw_Data'
 
 #########################################################
-# IMPORT, PREPROCESS AND STORE TRAINING DATA AS NUMPY ARRAY
+# IMPORT TRAINING DATA
 DataTrain = np.genfromtxt(os.path.join(CallFolder, 'Train_Data.csv'), delimiter=';')
 y_train = DataTrain[:,6]
 X_train = DataTrain[:,1:6]
+
+#########################################################
+# PREPROCESS TRAINING DATA
+scaler = StandardScaler()
+#scaler = MinMaxScaler(feature_range=(0,1))
+X_train = scaler.fit_transform(X_train)
 
 #########################################################
 # # GENERATE POLYNOMIAL FUNCTION OF THIRD ORDER
@@ -24,15 +32,6 @@ X_train_full[:, 10:15] = X_train**3
 X_train_full[:, 15:16] = 1.
 
 X_train = X_train_full
-#########################################################
-# STORE DATA AS NUMPY ARRAY
-np.save(os.path.join(CallFolder, 'X_train.npy'), X_train)
-np.save(os.path.join(CallFolder, 'y_train.npy'), y_train)
-
-#########################################################
-# LOAD DATA FROM NUMPY ARRAY
-X_train = np.load('Raw_Data/X_train.npy')
-y_train = np.load('Raw_Data/y_train.npy')
 
 #########################################################
 # TRAIN DATA

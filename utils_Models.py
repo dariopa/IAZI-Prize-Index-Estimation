@@ -14,7 +14,7 @@ class Regression():
         return weights
 
     def RidgeRegression(X_data, y_data):
-        model =RDG(alpha=0.8,
+        model =RDG(alpha=1.0,
                 copy_X=True,
                 fit_intercept=True,
                 max_iter=10000,
@@ -26,7 +26,7 @@ class Regression():
         return weights
 
     def LassoRegression(X_data, y_data):
-        model =LS(alpha=0.9,
+        model =LS(alpha=1.0,
                 max_iter=20000,
                 tol=0.0001)
         model.fit(X_data, y_data)
